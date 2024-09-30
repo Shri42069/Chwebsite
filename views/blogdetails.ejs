@@ -1,0 +1,372 @@
+<%- include('layout/header', { 
+    title: blog.seo.title,
+    description: blog.seo.description,
+    keywords: blog.seo.keywords.join(', '),
+    url: blog.seo.url
+}) %>
+
+<style>
+    .popup {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+    }
+  
+    .popup-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+    }
+  
+    .close-btn {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  
+    .close-btn:hover,
+    .close-btn:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .product-description{
+        font-size: 12px;
+    }
+    .button {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
+      background: none;
+      color: #0f1923;
+      cursor: pointer;
+      position: relative;
+      padding: 8px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all .15s ease;
+    }
+    .button::before,
+    .button::after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      left: 0;
+      height: calc(50% - 5px);
+      border: 1px solid #7D8082;
+      transition: all .15s ease;
+    }
+    .button::before {
+      top: 0;
+      border-bottom-width: 0;
+    }
+    .button::after {
+      bottom: 0;
+      border-top-width: 0;
+    }
+    .button:active,
+    .button:focus {
+      outline: none;
+    }
+    .button:active::before,
+    .button:active::after {
+      right: 3px;
+      left: 3px;
+    }
+    .button:active::before {
+      top: 3px;
+    }
+    .button:active::after {
+      bottom: 3px;
+    }
+    .button_lg {
+      position: relative;
+      display: block;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #0f1923;
+      overflow: hidden;
+      box-shadow: inset 0px 0px 0px 1px transparent;
+    }
+    .button_lg::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 2px;
+      background-color: #0f1923;
+    }
+    .button_lg::after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 4px;
+      height: 4px;
+      background-color: #0f1923;
+      transition: all .2s ease;
+    }
+    .button_sl {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: -1px;
+      left: -8px;
+      width: 0;
+      background-color: #ff4655;
+      transform: skew(-15deg);
+      transition: all .2s ease;
+    }
+    .button_text {
+      position: relative;
+    }
+    .button:hover {
+      color: #0f1923;
+    }
+    .button:hover .button_sl {
+      width: calc(100% + 15px);
+    }
+    .button:hover .button_lg::after {
+      background-color: #fff;
+    }
+</style>
+
+<div class="container my-5">
+    <h1 class="mb-5 custom-color"><%= blog.title %></h1>
+    
+    <div class="row">
+        <% if (blog.blogType === 'recipe') { %>
+            <div class="col-md-6">
+                <div class="recipe-image-container">
+                    <img src="/images/<%= blog.image %>" alt="<%= blog.title %>" class="recipe-image">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="recipe-details">
+                    <div class="blog-date-1">
+                        <p class="text-muted small mb-2">
+                            <%= new Date(blog.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %>
+                        </p>
+                    </div>
+                    
+                    <p><%- blog.recipeDetails.description %></p>
+                    <div class="blog-date">
+                        <p class="text-muted small mb-2">
+                            <%= new Date(blog.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %>
+                        </p>
+                    </div>
+                   
+                    <div class="recipe-info">
+                        <div class="recipe-detail-item">
+                            <i class="fas fa-temperature-high"></i>
+                            <span>Bake Temp</span>
+                            <strong><%= blog.recipeDetails.bakeTemp %>°C</strong>
+                        </div>
+                        <div class="recipe-detail-item">                                                                    
+                            <i class="fas fa-blender"></i>
+                            <span>Mixing Time</span>
+                            <strong><%= formatTimeRange(blog.recipeDetails.mixingTime) %> mins</strong>
+                        </div>
+                        <div class="recipe-detail-item">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Bake Time</span>
+                            <strong><%= formatTimeRange(blog.recipeDetails.bakeTime) %> mins</strong>
+                        </div>
+                        <div class="recipe-detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Prep Time</span>
+                            <strong><%= formatTimeRange(blog.recipeDetails.prepTime) %> mins</strong>
+                        </div>
+                    </div>
+                    <button id="shareRecipe" class="button">
+                        <span class="button_lg">
+                            <span class="button_sl"></span>
+                            <span class="button_text">Share/Print Recipe</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        <% } else { %>
+            <!-- Banner image for articles -->
+            <div class="col-12">
+                <div class="blog-banner" style="background-image: url('/images/<%= blog.image %>');"></div>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-8">
+            <div class="blog-details-card card">
+                <div class="card-body">
+                   <h3>Our Products</h3><br>
+                    <div id="product-container">
+                        <!-- Products will be dynamically inserted here -->
+                    </div>
+
+                    <% if (blog.blogType === 'recipe') { %>
+                        <div class="side-by-side">
+                            <div class="phone-text">
+                                <h3 class="recipe-heading">Ingredients</h3>
+                                <p><%- blog.content %></p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="recipe-heading">Method</h3>
+                                <p><%- blog.recipeDetails.method %></p>
+                            </div>
+                        </div>
+                    <% } else { %>
+                        <p class="card-text"><%- blog.content %></p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations column -->
+        <div class="col-lg-4">
+            <h3 class="custom-color">Recommended <%= blog.blogType === 'recipe' ? 'Recipes' : 'Articles' %></h3>
+            <% recommendedItems.forEach(item => { %>
+                <div class="card mb-3">
+                    <img src="/images/<%= item.image %>" class="card-img-top-recommendation" alt="<%= item.title %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= item.title %></h5>
+                        <div class="type">
+                            <p class="badge <%= item.blogType === 'article' ? 'bg-success' : 'bg-danger' %>"><%= item.blogType %></p>
+                            <a href="/blogDetails/<%= item.seo.url %>" class="btn btn-primary btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<div id="printableArea" style="display:none;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="/images/Logo.png" alt="Company Logo" style="max-width: 200px;">
+    </div>
+    <h3 style="color: #d72328; margin-bottom: 10px;"><%= blog.title %></h3>
+    <img src="/images/<%= blog.image %>" alt="<%= blog.title %>" style="max-width: 100%; height: auto; margin-bottom: 15px;">
+    <div style="margin-bottom: 15px;">
+        <p><strong>Description:</strong> <%- blog.recipeDetails.description %></p>
+        <p><strong>Bake Temp:</strong> <%= blog.recipeDetails.bakeTemp %>°C | 
+           <strong>Mixing Time:</strong> <%= formatTimeRange(blog.recipeDetails.mixingTime) %> mins | 
+           <strong>Bake Time:</strong> <%= formatTimeRange(blog.recipeDetails.bakeTime) %> mins | 
+           <strong>Prep Time:</strong> <%= formatTimeRange(blog.recipeDetails.prepTime) %> mins</p>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+        <div style="width: 48%;">
+            <h3>Ingredients</h3>
+            <div><%- blog.content %></div>
+        </div>
+        <div style="width: 48%;">
+            <h3>Method</h3>
+            <div><%- blog.recipeDetails.method %></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function downloadPDF() {
+        var printableArea = document.getElementById("printableArea");
+        
+        // Make sure the printable area is visible
+        printableArea.style.display = "block";
+
+        // Configure the pdf options
+        var opt = {
+            margin: 10,
+            filename: '<%= blog.title %>_Recipe.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Generate PDF using html2pdf
+        html2pdf().from(printableArea).set(opt).save().then(function() {
+            // Hide the printable area again after generating the PDF
+            printableArea.style.display = "none";
+        });
+    }
+
+    var downloadPDFBtn = document.getElementById('shareRecipe');
+    if (downloadPDFBtn) {
+        downloadPDFBtn.addEventListener('click', downloadPDF);
+    }
+    
+        const blogId = '<%= blog._id %>';
+        const productContainer = document.getElementById('product-container');
+        
+        // Show loading indicator
+        productContainer.innerHTML = '<p>Loading products...</p>';
+    
+        fetch(`/api/productDetails/${blogId}`)
+            .then(response => response.json())
+            .then(products => {
+                productContainer.innerHTML = ''; // Clear loading indicator
+                products.forEach((product, index) => {
+                    const productElement = document.createElement('div');
+                    productElement.innerHTML = `
+                        <button id="showProductBtn${index}" class="btn btn-primary mb-2">${product.title}</button>
+                        
+                        <div id="productPopup${index}" class="popup" style="display: none;">
+                            <div class="popup-content">
+                                <span class="close-btn">&times;</span>
+                                <div class="product-align">
+                                    <h4>${product.title}</h4>
+                                    <img src="${product.image}" alt="${product.title}" style="max-width: 45%; height: auto;">
+                                    ${product.additionalImage ? `<img src="${product.additionalImage}" alt="${product.title} - Additional Image" style="max-width: 45%; height: auto;">` : ''}
+                                </div>
+                                <p class="product-description">${product.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    productContainer.appendChild(productElement);
+    
+                    // Add event listeners for the popup
+                    const showProductBtn = document.getElementById(`showProductBtn${index}`);
+                    const productPopup = document.getElementById(`productPopup${index}`);
+                    const closeBtn = productPopup.querySelector('.close-btn');
+    
+                    showProductBtn.onclick = function() {
+                        productPopup.style.display = "block";
+                    }
+    
+                    closeBtn.onclick = function() {
+                        productPopup.style.display = "none";
+                    }
+    
+                    window.onclick = function(event) {
+                        if (event.target == productPopup) {
+                            productPopup.style.display = "none";
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching product details:', error);
+                productContainer.innerHTML = '<p>Error loading products. Please try again later.</p>';
+            });
+    });
+    </script>
+    
+
+<%- include('layout/footer') %>

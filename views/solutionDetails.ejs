@@ -1,0 +1,80 @@
+<%- include('layout/header', { title: 'solutions' }) %>
+
+<style>
+    .section-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+    .section-card {
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        height: 100%;
+    }
+    .section-description {
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    .sol_top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .solutions-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -1rem;
+    }
+    .solution-col {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+        padding: 1rem;
+    }
+    @media (max-width: 991px) {
+        .solution-col {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+    @media (max-width: 767px) {
+        .solution-col {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+</style>
+
+<div class="banner-blog d-flex align-items-center justify-content-center">
+    <div class="banner-text-blog text-center">
+        <img src="/images/artbord 1-100.jpg" alt="">
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="sol_top">
+        <h1 class="mb-4"><%= solution.title %></h1>
+        <p class="lead"><%- solution.longDescription %></p>
+    </div>
+
+    <div class="solutions-row">
+        <% solution.sections.forEach((section, index) => { %>
+            <div class="solution-col">
+                <div class="card section-card">
+                    <% if (section.image) { %>
+                        <img src="/images/<%= section.image %>" class="card-img-top section-image" alt="<%= section.title %>">
+                    <% } %>
+                    <div class="card-body">
+                        <h2 class="card-title"><%= section.title %></h2>
+                        <p class="card-text section-description"><%- section.description %></p>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<%- include('layout/footer') %>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        /* Existing styles */
+        .custom-list {
+            list-style: none;
+            padding-left: 0;
+            font-size: larger;
+            font-weight: 600;
+        }
+
+        .custom-list li::before {
+            content: '+';
+            color: red;
+            margin-right: 8px;
+            font-weight: bolder;
+        }
+
+        /* New styles */
+        .equal-height {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .vision-mission-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            border-color : #d72328;
+
+        }
+
+        .vision-mission-btn.active {
+            background-color: #d72328;
+            color: white;
+        }
+
+        #visionMissionText {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('layout/header', { title: 'About Us' }) %>
+
+    <div class="banner-blog d-flex align-items-center justify-content-center">
+        <div class="banner-text-blog text-center">
+            <img src="/images/artbord 1-100.jpg" alt="">
+        </div>
+    </div>
+    <p class="updated-text-solutions">
+        <span class="updated-text-2 innov-text">We continuously work together with our customers and channel partners to</span>
+        <span class="swiss2">create innovative bakery solutions </span> <span class="updated-text-2 innov-text"> tailored to  </span> <br>
+        <span class="updated-text-2 innov-text">meet their changing <span class="swiss2">needs and market demands.</span> </span>
+    </p>
+   
+    
+
+    <div class="container my-4">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-md-6 equal-height">
+                <div class="sec-text-1">
+                    <span class="swiss2">WHO ARE WE</span><br>
+                    <span class="updated-text-2 innov-text">
+                        SwissBake® was founded with the mission of providing top-quality baking ingredients, mixes, and flours to professional bakers and pastry chefs across the globe, making it simpler for them to consistently produce delicious and visually appealing baked goods. SwissBake® has since established itself as a trusted partner to some of the world's leading luxury hotel chains, quick-service restaurants, patisseries, and hotels.
+                        <br><br>
+                        Innovation is at the core of SwissBake®'s success. By continually investing in research and development, SwissBake® remains at the forefront of the baking industry, offering cutting-edge products that cater to the ever-evolving needs of professional bakers and chefs. SwissBake®'s dedication to quality is evident in every aspect of the business, from the careful selection of the finest ingredients to the rigorous testing and quality control processes that ensure the consistency and excellence of our products.
+                    </span>
+                </div>
+            </div>
+            <!-- Right Column -->
+            <div class="col-md-6 equal-height">
+                <div class="card sec-text-2">
+                    <img class="about_img" src="images/About_us_Our_Legacy.jpg" alt="Bakery Image">
+                    <div class="card-body">
+                        <ul class="custom-list">
+                            <li>Swiss expertise in bakery formulation & milling technology</li>
+                            <li>Innovative bakery solutions & range of convenience products</li>
+                            <li>Customized solutions by collaboration with local bakers across the globe</li>
+                            <li>Proudly serving markets in Asia, Middle East, Africa, and Europe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button id="missionBtn" class="vision-mission-btn btn-primary">OUR MISSION</button>
+        <button id="visionBtn" class="vision-mission-btn btn-primary">OUR VISION</button>
+    </div>
+    <div id="visionMissionText"></div>
+
+    
+
+    <div class="container my-4">
+        <div class="row">
+            <!-- Right Column -->
+            <div class="col-md-6 equal-height">
+                <div class="card sec-text-2">
+                    <img class="about_img" src="images/About_us_Our_Legacy.jpg" alt="Bakery Image">
+                    <div class="card-body">
+                        <ul class="custom-list">
+                            <li>Swiss expertise in bakery formulation & milling technology</li>
+                            <li>Innovative bakery solutions & range of convenience products</li>
+                            <li>Customized solutions by collaboration with local bakers across the globe</li>
+                            <li>Proudly serving markets in Asia, Middle East, Africa, and Europe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Left Column -->
+            <div class="col-md-6 equal-height">
+                <div class="sec-text-1">
+                    <span class="swiss2">WHO ARE WE</span><br>
+                    <span class="updated-text-2 innov-text">
+                        SwissBake® was founded with the mission of providing top-quality baking ingredients, mixes, and flours to professional bakers and pastry chefs across the globe, making it simpler for them to consistently produce delicious and visually appealing baked goods. SwissBake® has since established itself as a trusted partner to some of the world's leading luxury hotel chains, quick-service restaurants, patisseries, and hotels.
+                        <br><br>
+                        Innovation is at the core of SwissBake®'s success. By continually investing in research and development, SwissBake® remains at the forefront of the baking industry, offering cutting-edge products that cater to the ever-evolving needs of professional bakers and chefs. SwissBake®'s dedication to quality is evident in every aspect of the business, from the careful selection of the finest ingredients to the rigorous testing and quality control processes that ensure the consistency and excellence of our products.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('layout/footer') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const missionBtn = document.getElementById('missionBtn');
+            const visionBtn = document.getElementById('visionBtn');
+            const textDisplay = document.getElementById('visionMissionText');
+
+            const missionText = "Our mission is to provide top-quality baking solutions to professionals worldwide.";
+            const visionText = "Our vision is to be the global leader in innovative bakery products and services.";
+
+            function setActiveButton(activeBtn, inactiveBtn) {
+                activeBtn.classList.add('active');
+                inactiveBtn.classList.remove('active');
+            }
+
+            missionBtn.addEventListener('click', function() {
+                textDisplay.textContent = missionText;
+                setActiveButton(missionBtn, visionBtn);
+            });
+
+            visionBtn.addEventListener('click', function() {
+                textDisplay.textContent = visionText;
+                setActiveButton(visionBtn, missionBtn);
+            });
+
+            // Set default view
+            missionBtn.click();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<%- include('layout/header', { title: 'Uploaded User Images' }) %>
+<style>
+    .cookie-consent-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .cookie-consent {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f1f1f1;
+        padding: 20px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+    }
+        .cookie-options {
+            display: none;
+            margin-top: 20px;
+        }
+        .cookie-option {
+            margin-bottom: 10px;
+        }
+        .cookie-btn {
+            background-color: #d72328;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        #savePreferences {
+            display: none;
+        }
+    
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .animated-bg {
+        background:#eee;
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    
+
+    @keyframes revealText {
+        to { transform: translateX(100%); }
+    }
+</style>
+
+<div id="cookieConsentOverlay" class="cookie-consent-overlay"></div>
+
+<% if (!cookieConsent) { %>
+    <div id="cookieConsent" class="cookie-consent">
+        <h2>Cookie Preferences</h2>
+        <p>We use cookies to enhance your browsing experience and analyze our traffic. Please choose your preferences below to continue using our website:</p>
+        
+        <button id="acceptAllCookies" class="cookie-btn">Accept All Cookies</button>
+        <button id="adjustPreferences" class="cookie-btn">Adjust Preferences</button>
+        
+        <div id="cookieOptions" class="cookie-options" style="display: none;">
+            <div class="cookie-option">
+                <input type="checkbox" id="functionalCookies" checked disabled>
+                <label for="functionalCookies">
+                    <strong>Functional cookies:</strong> Ensure the proper functioning of the website (e.g. cookies for language preferences or registration and login)
+                </label>
+            </div>
+            
+            <div class="cookie-option">
+                <input type="checkbox" id="analyticalCookies">
+                <label for="analyticalCookies">
+                    <strong>Analytical cookies:</strong> Used to track visitors on the website. They are essential in measuring the performance of a website and to optimize it.
+                </label>
+            </div>
+            
+            <div class="cookie-option">
+                <input type="checkbox" id="advertisingCookies">
+                <label for="advertisingCookies">
+                    <strong>Personalised advertising cookies:</strong> Used to deliver adverts more relevant to you and your interests.
+                </label>
+            </div>
+            
+            <div class="cookie-option">
+                <input type="checkbox" id="visitCookies">
+                <label for="visitCookies">
+                    <strong>Visit and follow-up cookies:</strong> Allow us to understand how individual visitors browse the website and which paths they follow
+                </label>
+            </div>
+        </div>
+        
+        <button id="savePreferences" class="cookie-btn" style="display: none;">Save Preferences</button>
+    </div>
+<% } %>
+
+<div class="container-fluid">
+    <div class="banner-container position-relative parallax">
+        <% if (users && users.length > 0) { %>
+            <div id="userCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-inner banner-phone">
+                    <% users.forEach(function(user, index) { %>
+                        <div class="carousel-item <%= index === 0 ? 'active' : '' %> position-relative">
+                            <img src="/images/<%= user.image %>" class="d-block w-100 banner-img" alt="<%= user.name %>">
+                            <div class="paragraph1-container paragraph-container">
+                                <p><%= user.paragraph1 %></p>
+                            </div>
+                            <div class="paragraph2-container paragraph-container">
+                                <p><%= user.paragraph2 %></p>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="col-12">
+                <p class="text-center">No user images uploaded yet.</p>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<div class="text-swiss fade-in">
+    <p class="updated-text reveal-text">
+        <span class="swiss2">SwissBake<sup>®</sup></span>
+        is a brand of premium <br>
+         <span class="swiss">Trade 'n Bake (Switzerland), </span><br>
+        ingredients and convenience products.
+    </p>
+    <p class="updated-text-2 reveal-text">
+        oversees the production and distribution of and distribution of <br>SwissBake® products across Asia & Middle East.
+        <span class="swiss2">SwissBake®</span> Baking <br>
+        Ingredients across<span class="swiss2">Asia and the Middle East.</span>
+    </p>
+</div>
+
+<div class="blog-div fade-in">
+    <div class="container mt-2 centered-container">
+        <!-- Standard blog layout -->
+        <div class="row blog-container">
+            <% if (blogs && blogs.length > 0) { %>
+                <div class="col-md-6 blog-left">
+                    <div class="card blog1">
+                        <img src="/images/<%= blogs[0].image %>" class="card-img-top img-fluid" alt="<%= blogs[0].title %>">
+                        <div class="card-body">
+                            <h2 class="card-title"><%= blogs[0].title.substring(0, 100) %></h2>
+                            <p class="card-text"><%- blogs[0].content.substring(0, 400) %>...</p>
+                            <a href="/blogDetails/<%= blogs[0]._id %>" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 blog-right">
+                    <% for (let i = 1; i < blogs.length; i++) { %>
+                        <div class="card mb-4 blog2 position-relative">
+                            <img src="/images/<%= blogs[i].image %>" class="card-img-top img-fluid" alt="<%= blogs[i].title %>">
+                            <div class="overlay"></div>
+                            <div class="read-more-wrapper">
+                                <a href="/blogDetails/<%= blogs[i]._id %>"  class="btn btn-read-more">Read More</a>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            <% } else { %>
+                <div class="col-12">
+                    <p class="text-center">No blogs available yet.</p>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Carousel for mobile view -->
+        <div id="blogCarousel" class="carousel slide carousel-container">
+            <div class="carousel-inner">
+                <% if (blogs && blogs.length > 0) { %>
+                    <% blogs.forEach((blog, index) => { %>
+                        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                            <div class="card blog-card">
+                                <img src="/images/<%= blog.image %>" class="card-img-top" alt="<%= blog.title %>">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= blog.title %></h5>
+                                    <a href="/blogDetails/<%= blog._id %>" class="btn btn-primary read-more-btn" data-blog-id="<%= blog._id %>">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="carousel-item active">
+                        <p class="text-center">No blogs available yet.</p>
+                    </div>
+                <% } %>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <button class="carousel-control-prev" type="button">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+            <!-- Indicators -->
+            <div class="carousel-indicators">
+                <% if (blogs && blogs.length > 0) { %>
+                    <% blogs.forEach((_, index) => { %>
+                        <button type="button" data-bs-target="#blogCarousel" data-bs-slide-to="<%= index %>" <%= index === 0 ? 'class="active" aria-current="true"' : '' %> aria-label="Slide <%= index + 1 %>"></button>
+                    <% }); %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-85faf8db-e308-4cb9-be86-c7ef9de97a96" data-elfsight-app-lazy></div>
+
+<div class="solutions container-fluid fade-in">
+    <div class="sol-center">
+        <p class="updated-text reveal-text">
+            <span class="swiss-solutions"> Solutions By </span><span class="swiss2">SwissBake's</span><br>
+            <span class="swiss-solutions-2"> Crafting and formulating premium solutions with passion for your convenience and reliability.</span>
+        </p>
+
+        <div class="row">
+            <% if (solutions && solutions.length > 0) { %>
+                <% solutions.slice(0, 4).forEach((solution, index) => { %>
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="solution-box card shadow-sm">
+                            <img src="/images/<%= solution.image %>" class="card-img-top" alt="<%= solution.title %>">
+                            <div class="card-body d-flex flex-column">
+                                <h1 class="card-title text-center solution-title"><%= solution.title %></h1>
+                                <div class="title-underline"></div>
+                                <p class="sol-para"><%= solution.shortDescription.length > 250 ? solution.shortDescription.substring(0, 250) + '...' : solution.shortDescription %></p>
+                                
+                                <div class="mt-auto text-center">
+                                    <a href="/solutionDetails/<%= solution._id %>" class="btn custom-btn-sol btn-sm">Know <span class="more">More</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="col-12">
+                    <p class="text-center">No solutions found. Check back later for new content!</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<div class="innov fade-in">
+    <p class="updated-text-solutions reveal-text">
+        <span class="swiss2">Innovation</span> <span class="updated-text-2 innov-text">is key to our success, propelled</span>
+        <span class="swiss2">by expert research and <br> development.</span> <span class="updated-text-2 innov-text">We at </span>
+        <span class="swiss2">SwissBake®</span><span class="updated-text-2 innov-text">empower & support our clienteles to develop reliably <br>bespoke baking solutions that adapt to dynamic needs and market trends.</span>
+    </p>
+
+    <div class="text-center mt-4">
+        <a href="#" class="btn swissbake-btn">
+            Solutions by Swissbake <i class="fa-solid fa-chevron-right"></i>
+        </a>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.blog2').forEach((card) => {
+        card.addEventListener('mouseover', () => {
+            const wrapper = card.querySelector('.read-more-wrapper');
+            wrapper.style.opacity = '1';
+        });
+
+        card.addEventListener('mouseout', () => {
+            const wrapper = card.querySelector('.read-more-wrapper');
+            wrapper.style.opacity = '0';
+        });
+    });
+
+    
+
+    
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Fade-in Elements on Scroll
+    const fadeElems = document.querySelectorAll('.fade-in');
+
+    const fadeIn = function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            }
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+        });
+    };
+
+    const options = {
+        threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver(fadeIn, options);
+
+    fadeElems.forEach(elem => {
+        observer.observe(elem);
+    });
+
+    // Parallax Scrolling Effect
+    window.addEventListener('scroll', function() {
+        const parallax = document.querySelector('.parallax');
+        let scrollPosition = window.pageYOffset;
+        parallax.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
+    });
+</script>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    const cookieConsentOverlay = document.getElementById('cookieConsentOverlay');
+    const acceptAllBtn = document.getElementById('acceptAllCookies');
+    const adjustBtn = document.getElementById('adjustPreferences');
+    const saveBtn = document.getElementById('savePreferences');
+    const cookieOptions = document.getElementById('cookieOptions');
+
+    function blockWebsiteUsage() {
+        cookieConsentOverlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function allowWebsiteUsage() {
+        cookieConsentOverlay.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    if (cookieConsent) {
+        blockWebsiteUsage();
+
+        acceptAllBtn.addEventListener('click', () => setCookieConsent({
+            functional: true,
+            analytical: true,
+            advertising: true,
+            visit: true
+        }));
+        adjustBtn.addEventListener('click', () => {
+            cookieOptions.style.display = 'block';
+            adjustBtn.style.display = 'none';
+            saveBtn.style.display = 'inline-block';
+        });
+        saveBtn.addEventListener('click', () => {
+            const preferences = {
+                functional: true, // Always true as it's necessary
+                analytical: document.getElementById('analyticalCookies').checked,
+                advertising: document.getElementById('advertisingCookies').checked,
+                visit: document.getElementById('visitCookies').checked
+            };
+            setCookieConsent(preferences);
+        });
+    } else {
+        // If cookieConsent element doesn't exist, it means consent was already given
+        allowWebsiteUsage();
+    }
+
+    function setCookieConsent(consent) {
+        fetch('/cookie-consent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(consent),
+        }).then(response => {
+            if (response.ok) {
+                hideCookieConsentBanner();
+                allowWebsiteUsage();
+            } else {
+                console.error('Failed to set cookie consent');
+                alert('There was an error saving your preferences. Please try again.');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('There was an error saving your preferences. Please try again.');
+        });
+    }
+
+    function hideCookieConsentBanner() {
+        cookieConsent.style.display = 'none';
+        document.body.classList.add('cookie-consent-given');
+        localStorage.setItem('cookieConsentGiven', 'true');
+    }
+
+    // Check if consent was previously given
+    if (localStorage.getItem('cookieConsentGiven') === 'true') {
+        hideCookieConsentBanner();
+        allowWebsiteUsage();
+    }
+});
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+<script src="/views/layout/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<%- include('layout/footer') %>

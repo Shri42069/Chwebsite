@@ -1,0 +1,511 @@
+<%- include('layout/header', { title: 'Add User' })  %>
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 mx-auto mt-4">
+            <div class="btn-group d-flex mb-4" role="group">
+                <button type="button" class="btn btn-primary" onclick="showForm('banner1')">Banner 1</button>
+                <button type="button" class="btn btn-primary" onclick="showForm('banner2')">Banner 2</button>
+                <button type="button" class="btn btn-primary" onclick="showForm('blog')">Blog</button>
+                <button type="button" class="btn btn-primary" onclick="showForm('youtube')">YouTube</button>
+                <button type="button" class="btn btn-primary" onclick="showForm('solution')">Solution</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='/up_blogs'">Update Blogs</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='/update_solutions'">Update Solutions</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="banner1Form" class="form-container" style="display: none;">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 mx-auto mt-4">
+                <div class="card shadow">
+                    <div class="card-header bg-danger">
+                        <h3 class="text-light">Banner 1</h3>
+                    </div>
+                    <form action="/add" method="post" id="add-form" enctype="multipart/form-data">
+                        <div class="form-group p-2">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter the user's name" required>
+                        </div>
+                        <div class="form-group p-2">
+                            <label for="image">Upload Image:</label>
+                            <input type="file" class="form-control-file" id="image" name="image" required>
+                        </div>
+                        <div class="form-group p-2">
+                            <label for="paragraph1">First Paragraph:</label>
+                            <textarea class="form-control" id="paragraph1" name="paragraph1" rows="3" placeholder="Enter the first paragraph" required></textarea>
+                        </div>
+                        <div class="form-group p-2">
+                            <label for="paragraph2">Second Paragraph:</label>
+                            <textarea class="form-control" id="paragraph2" name="paragraph2" rows="3" placeholder="Enter the second paragraph" required></textarea>
+                        </div>
+                        <div class="mb-10 d-grid p-2">
+                            <button type="submit" class="btn btn-danger p-2">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="banner2Form" class="form-container" style="display: none;">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 mx-auto mt-4">
+                <div class="card shadow">
+                    <div class="card-header bg-danger">
+                        <h3 class="text-light">Banner 2</h3>
+                    </div>
+                    <form action="/add2" method="post" id="add-form2" enctype="multipart/form-data">
+                        <div class="form-group p-2">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter the user's name" required>
+                        </div>
+                        <div class="form-group p-2">
+                            <label for="image">Upload Image:</label>
+                            <input type="file" class="form-control-file" id="image" name="image" required>
+                        </div>
+                        <div class="form-group p-2">
+                            <label for="paragraph1">First Paragraph:</label>
+                            <textarea class="form-control" id="paragraph1" name="paragraph1" rows="3" placeholder="Enter the first paragraph" required></textarea>
+                        </div>
+                        <div class="form-group p-2">
+                            <label for="paragraph2">Second Paragraph:</label>
+                            <textarea class="form-control" id="paragraph2" name="paragraph2" rows="3" placeholder="Enter the second paragraph" required></textarea>
+                        </div>
+                        <div class="mb-10 d-grid p-2">
+                            <button type="submit" class="btn btn-danger p-2">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Blog Form -->
+    <div id="blogForm" class="form-container" style="display: none;">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 mx-auto mt-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary">
+                            <h3 class="text-light">Blog Entry Form</h3>
+                        </div>
+                        <form action="/blog" method="post" id="blog-form" enctype="multipart/form-data">
+                            <!-- Blog Type Selection -->
+                            <div class="form-group p-2">
+                                <label>Blog Type:</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="blogType" id="typeArticle" value="article" required>
+                                    <label class="form-check-label" for="typeArticle">Article</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="blogType" id="typeRecipe" value="recipe" required>
+                                    <label class="form-check-label" for="typeRecipe">Recipe</label>
+                                </div>
+                            </div>
+
+                            <!-- Recipe-specific fields -->
+                            <div id="recipeFields" style="display: none;">
+                                <div class="form-group p-2">
+                                    <label for="bakeTemp">Bake Temperature (°C):</label>
+                                    <input type="number" class="form-control" id="bakeTemp" name="bakeTemp">
+                                </div>
+                                
+                                <div class="form-group p-2">
+                                    <label for="mixingTimeMin">Mixing Time Range (minutes):</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="mixingTimeMin" name="mixingTimeMin" placeholder="Min">
+                                        <span class="input-group-text">to</span>
+                                        <input type="number" class="form-control" id="mixingTimeMax" name="mixingTimeMax" placeholder="Max">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group p-2">
+                                    <label for="bakeTimeMin">Bake Time Range (minutes):</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="bakeTimeMin" name="bakeTimeMin" placeholder="Min">
+                                        <span class="input-group-text">to</span>
+                                        <input type="number" class="form-control" id="bakeTimeMax" name="bakeTimeMax" placeholder="Max">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group p-2">
+                                    <label for="prepTimeMin">Prep Time Range (minutes):</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="prepTimeMin" name="prepTimeMin" placeholder="Min">
+                                        <span class="input-group-text">to</span>
+                                        <input type="number" class="form-control" id="prepTimeMax" name="prepTimeMax" placeholder="Max">
+                                    </div>
+                                </div>
+
+                                <div class="form-group p-2">
+                                    <label for="recipeDescription">Recipe Description:</label>
+                                    <textarea class="form-control" id="recipeDescription" name="recipeDescription" rows="3" placeholder="Enter a brief description of the recipe"></textarea>
+                                </div>
+
+                                <div id="methodContainer">
+                                    <div class="form-group p-2">
+                                        <label for="method">Method:</label>
+                                        <textarea class="form-control" id="method" name="method" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label for="productUrls">Product URLs:</label>
+                                    <div id="productUrlsContainer">
+                                        <div class="input-group mb-2">
+                                            <input type="url" class="form-control productUrl" name="productUrls[]" placeholder="Enter product URL">
+                                            <button type="button" class="btn btn-secondary addProductUrl">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Blog Title -->
+                            <div class="form-group p-2">
+                                <label for="title">Blog Title:</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Enter the blog title" required>
+                            </div>
+                            
+                            <!-- Blog Content -->
+                            <div id="articleContent">
+                                <div class="form-group p-2">
+                                    <label for="content">Blog Content:</label>
+                                    <textarea class="form-control" id="content" name="content" rows="10" placeholder="Write your blog content here..."></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Blog Image -->
+                            <div class="form-group p-2">
+                                <label for="image">Upload Image:</label>
+                                <input type="file" class="form-control-file" id="image" name="image" required>
+                            </div>
+                            
+                            <!-- SEO Fields -->
+                            <div class="form-group p-2">
+                                <label for="seo-url">SEO URL:</label>
+                                <input type="text" class="form-control" id="seo-url" name="seo-url" placeholder="Enter SEO-friendly URL" required>
+                            </div>
+                            <div class="form-group p-2">
+                                <label for="seo-tags">SEO Tags (comma-separated):</label>
+                                <input type="text" class="form-control" id="seo-tags" name="seo-tags" placeholder="Enter tags, separated by commas">
+                            </div>
+                            <div class="form-group p-2">
+                                <label for="seo-description">SEO Description:</label>
+                                <textarea class="form-control" id="seo-description" name="seo-description" rows="3" placeholder="Enter meta description for SEO" required></textarea>
+                            </div>
+                            <div class="form-group p-2">
+                                <label for="seo-title">SEO Title:</label>
+                                <input type="text" class="form-control" id="seo-title" name="seo-title" placeholder="Enter meta title for SEO" required>
+                            </div>
+                            <div class="form-group p-2">
+                                <label for="seo-keywords">SEO Keywords (comma-separated):</label>
+                                <input type="text" class="form-control" id="seo-keywords" name="seo-keywords" placeholder="Enter keywords, separated by commas">
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="mb-10 d-grid p-2">
+                                <button type="submit" class="btn btn-primary p-2">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="youtubeForm" class="form-container" style="display: none;">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 mx-auto mt-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-danger">
+                            <h3 class="text-light">Add or Update YouTube Video</h3>
+                        </div>
+                        <form action="/youtube" method="post" id="addYoutube-form">
+                            <div class="form-group p-2">
+                                <label for="name">Video Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter the video's name" required>
+                            </div>
+                            <div class="form-group p-2">
+                                <label for="url">YouTube URL:</label>
+                                <input type="text" class="form-control" id="url" name="url" placeholder="Enter the YouTube video URL" required>
+                            </div>
+                            <div class="mb-10 d-grid p-2">
+                                <button type="submit" class="btn btn-danger p-2">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+ <div id="solutionForm" class="form-container" style="display: none;">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 mx-auto mt-4">
+                <div class="card shadow">
+                    <div class="card-header bg-primary">
+                        <h3 class="text-light">Solution Entry Form</h3>
+                    </div>
+                    <form action="/solution" method="post" id="solution-form" enctype="multipart/form-data">
+                        <!-- Existing fields -->
+                        <div class="form-group p-2">
+                            <label for="title">Solution Title:</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Enter the solution title" required>
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="shortDescription">Short Description:</label>
+                            <textarea class="form-control" id="shortDescription" name="shortDescription" rows="3" placeholder="Enter a short description of the solution" required></textarea>
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="longDescription">Long Description:</label>
+                            <textarea class="form-control" id="longDescription" name="longDescription" rows="10" placeholder="Enter a detailed description of the solution" required></textarea>
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="mainImage">Main Image:</label>
+                            <input type="file" class="form-control-file" id="mainImage" name="mainImage" required>
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="seo-url">SEO URL:</label>
+                            <input type="text" class="form-control" id="seo-url" name="seo-url" placeholder="Enter SEO-friendly URL" required>
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="seo-tags">SEO Tags (comma-separated):</label>
+                            <input type="text" class="form-control" id="seo-tags" name="seo-tags" placeholder="Enter tags, separated by commas" required>
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="seo-keywords">SEO Keywords (comma-separated):</label>
+                            <input type="text" class="form-control" id="seo-keywords" name="seo-keywords" placeholder="Enter keywords, separated by commas" required>
+                        </div>
+    
+                        <!-- Sections -->
+                        <div id="sections">
+                            <h4 class="mt-4 mb-3">Sections</h4>
+                            <div class="section card mb-3">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Section Title:</label>
+                                        <input type="text" class="form-control section-title" name="section-title[]" required>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label>Section Description:</label>
+                                        <textarea class="form-control section-description" name="section-description[]" rows="3" required></textarea>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label>Section Image:</label>
+                                        <input type="file" class="form-control-file section-image" name="sectionImages" required>
+                                    </div>
+                                    <!-- No delete button for the initial section -->
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="mb-3 d-grid p-2">
+                            <button type="button" id="addSection" class="btn btn-secondary">Add Another Section</button>
+                        </div>
+                        
+                        <div class="mb-3 d-grid p-2">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+    
+
+    
+
+ 
+
+<script>
+document.getElementById('addSection').addEventListener('click', function() {
+    const sectionsDiv = document.getElementById('sections');
+    const newSection = document.querySelector('.section').cloneNode(true);
+    
+    // Clear input values in the cloned section
+    newSection.querySelectorAll('input, textarea').forEach(input => input.value = '');
+    
+    // Add delete button to the new section
+    const deleteButton = document.createElement('button');
+    deleteButton.type = 'button';
+    deleteButton.className = 'btn btn-danger btn-sm mt-2 delete-section';
+    deleteButton.textContent = 'Delete Section';
+    deleteButton.addEventListener('click', deleteSection);
+    newSection.querySelector('.card-body').appendChild(deleteButton);
+    
+    sectionsDiv.appendChild(newSection);
+});
+
+// Function to delete a section
+function deleteSection(event) {
+    const section = event.target.closest('.section');
+    if (section) {
+        section.remove();
+    }
+}
+
+document.getElementById('solution-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    const sections = [];
+    const titles = formData.getAll('section-title[]');
+    const descriptions = formData.getAll('section-description[]');
+    const images = formData.getAll('sectionImages');
+    
+    for (let i = 0; i < titles.length; i++) {
+        sections.push({
+            title: titles[i],
+            description: descriptions[i],
+            // We don't add the image here as it's already in the FormData
+        });
+    }
+    
+    formData.append('sections', JSON.stringify(sections));
+    
+    fetch('/solution', {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = '/'; // Redirect to home page on success
+        } else {
+            console.error('Form submission failed');
+        }
+    });
+});
+</script>
+
+
+  
+    <script>
+        function showForm(formId) {
+            // Hide all forms
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.style.display = 'none';
+            });
+
+            // Show the selected form
+            document.getElementById(formId + 'Form').style.display = 'block';
+        }
+        // Function to initialize TinyMCE
+        function initTinyMCE(selector) {
+            tinymce.init({
+                selector: selector,
+                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                height: 400,
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        tinymce.triggerSave();
+                    });
+                }
+            });
+        }
+    
+        // Initialize TinyMCE for both 'content' and 'method' textareas
+        initTinyMCE('#content');
+        initTinyMCE('#method');
+
+        // Initialize TinyMCE for longDescription
+        initTinyMCE('#longDescription');
+
+       
+        // Form submission validation
+        document.getElementById('blog-form').addEventListener('submit', function(e) {
+            var content = tinymce.get('content').getContent();
+            var method = tinymce.get('method').getContent();
+            var blogType = document.querySelector('input[name="blogType"]:checked').value;
+    
+            if (blogType === 'article' && content === '') {
+                e.preventDefault();
+                alert('Please enter some content for your blog post.');
+            } else if (blogType === 'recipe' && method === '') {
+                e.preventDefault();
+                alert('Please enter the method for your recipe.');
+            }
+        });
+    
+        // Show/hide recipe fields based on blog type selection
+        document.querySelectorAll('input[name="blogType"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                var recipeFields = document.getElementById('recipeFields');
+                var articleContent = document.getElementById('articleContent');
+                if (this.value === 'recipe') {
+                    recipeFields.style.display = 'block';
+                    articleContent.style.display = 'block';
+                } else {
+                    recipeFields.style.display = 'none';
+                    articleContent.style.display = 'block';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const blogTypeRadios = document.querySelectorAll('input[name="blogType"]');
+          const recipeFields = document.getElementById('recipeFields');
+        
+          blogTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+              if (this.value === 'recipe') {
+                recipeFields.style.display = 'block';
+              } else {
+                recipeFields.style.display = 'none';
+              }
+            });
+          });
+        });
+    </script>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const container = document.getElementById('productUrlsContainer');
+                document.querySelector('.addProductUrl').addEventListener('click', function() {
+                    const newInput = document.createElement('div');
+                    newInput.className = 'input-group mb-2';
+                    newInput.innerHTML = `
+                        <input type="url" class="form-control productUrl" name="productUrls[]" placeholder="Enter product URL">
+                        <button type="button" class="btn btn-secondary removeProductUrl">-</button>
+                    `;
+                    container.appendChild(newInput);
+                });
+
+                container.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('removeProductUrl')) {
+                        e.target.closest('.input-group').remove();
+                    }
+                });
+            });
+        </script>
+
+
+
+
+
+<%- include('layout/footer')  %>
+

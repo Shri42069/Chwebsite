@@ -1,0 +1,1407 @@
+
+.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+    overflow-x: hidden;
+}
+
+
+/* Top section with logo and search field */
+header .container {
+    padding: 0 20px; /* Adjust padding to prevent elements from reaching the edges */
+}
+
+/* Navbar background */
+.navbar {
+    background-color: #eee; /* Dark grey */
+    height: 3rem;
+    overflow: hidden;
+}
+
+.navbar>.container-fluid{
+    overflow: hidden;
+}
+
+/* Navbar links */
+.nav-link {
+    color: #6b6b6b !important; /* White text */
+    padding-bottom: 5px; /* Extra space for the underline */
+    position: relative; /* Needed for the underline */
+}
+
+/* Hover effect for links */
+.nav-link:hover {
+    color: #ccc !important; /* Lighter grey */
+}
+
+/* Separator between items */
+.separator {
+    display: inline-block;
+    height: 43px;
+    width: 1px;
+    background-color: black;
+    margin: -2px 10px;
+}
+
+/* Active link with red underline */
+.nav-link.custom-active::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px; /* Thickness of the underline */
+    background-color: red; /* Red color for the underline */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+/* Style for inactive nav-links to prevent underline shifting on hover */
+.nav-link::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 3px;
+    background-color: transparent;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+/* Add underline on hover */
+.nav-link:hover::after {
+    width: 100%;
+    background-color: red;
+}
+
+.nav-route{
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
+
+/* Search field styling */
+.search-form {
+    max-width: 300px; /* Maximum width for the search field */
+}
+
+/* Search field elements */
+input[type="search"] {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+button[type="submit"] {
+    border: 2px solid #d72328;
+    background-color: #d72328;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 10px;
+    margin-left: 5px;
+}
+
+  /* Custom styles for paragraph containers */
+  .paragraph-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 0;
+    
+}
+
+.paragraph1-container {
+    background-color: #d72328;
+    color: white;
+    top: 4%; /* Position at 10% from top */
+    text-align: left;
+    width: 15rem;
+    left: 33rem;
+    font-size: 30px;
+
+}
+
+.paragraph2-container {
+    background-color: white;
+    color: black;
+    bottom: 57%; /* Position at 10% from bottom */
+    text-align: center;
+    width: 35rem;
+    left: 53rem;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 500px; /* Set a fixed height for images */
+    object-fit: cover; /* Ensure image covers the div */
+}
+
+
+
+
+.banner-container {
+    position: relative;
+    overflow: hidden;
+    height: 35vh; /* Set to a percentage of viewport height for responsiveness */
+    max-height: 100%;
+}
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the container */
+}
+
+.carousel-caption {
+    bottom: 10%;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background for better visibility */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.swiss {
+    color: #d72328;
+    font-weight: bolder;
+}
+
+.swiss2 {
+    color: rgb(92, 92, 92);
+    font-weight: bolder;
+}
+
+.updated-text {
+    padding-top: 30px;
+    text-align: center;
+    font-size: 2.5vw; /* Use viewport units for scalable text size */
+    color: #606060;
+    line-height: 1.2;
+}
+
+.updated-text-2 {
+    text-align: center;
+    font-size: 1.5vw;
+    color: #606060;
+    line-height: 1.6;
+}
+
+.centered-container {
+    max-width: 50%; /* Adjusted for better layout balance */
+    margin: 0 auto;
+    padding: 20px;
+    
+    border-radius: 8px;
+}
+
+.blog-container {
+    display: flex;
+    height: auto; /* Allow height to adjust on smaller screens */
+    justify-content: center;
+}
+
+.blog-left, .blog-right {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.blog-left{
+    width: 28rem;
+    left: 12rem;
+    position: relative;
+}
+
+/* Include the CSS directly for simplicity */
+.blog2 img {
+    height: 230px; /* Adjust height as needed */
+    width: 100%;
+    object-fit: cover;
+}
+
+.read-more-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 2;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.blog2 .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+}
+
+.blog2:hover .overlay {
+    opacity: 1;
+}
+
+.blog2:hover .read-more-wrapper {
+    display: block;
+    opacity: 1;
+}
+
+.btn-read-more {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    border-color: #d72328;
+    border: 5px solid #ffffff; /* White border */
+    font-weight: 600;
+}
+
+.btn-read-more:hover {
+    background-color: transparent;
+    color: white;
+    border-color: white;
+    border-radius: 5px;
+}
+
+
+.card {
+    box-shadow: 10px 15px 20px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: transform 0.3s;
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-img-top {
+    object-fit: fill;
+    height: 10rem;
+    
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 15px;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+    height: 4rem;
+}
+
+.card-text {
+    font-size: 16px;
+    background-color: #eee;
+}
+
+.btn-primary {
+    background-color: #d72328;
+    border-color: #d72328;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, border-color 0.3s;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.blog1 {
+    flex-grow: 1;
+    height: 100%; /* Ensures the blog card takes up the full height of its container */
+}
+
+.blog2 {
+    flex-grow: 1;
+    height: 13.8rem;
+    width: 27rem;
+}
+
+.blog-div {
+    display: flex;
+    
+    
+    justify-content: center;
+    align-items: center;
+}
+
+.text-swiss{
+    background-color: #eee;
+    height: 330px;
+}
+
+
+
+
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.swissbake-btn {
+    background-color: #d72328;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.swissbake-btn:hover {
+    background-color: #b51d22;
+    color: white;
+}
+
+.swissbake-btn .fa-arrow-right {
+    margin-left: 10px;
+}
+
+.youtube {
+    margin-bottom: 7rem;
+}
+
+.instagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+    
+}
+.recipe-heading{
+    color: #d72328;
+    margin-bottom: 2rem;
+}
+.blog-date {
+    width: 100%;
+}
+
+.blog-date-1{
+    display: none;
+    width: 100%;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+    /* Responsive styling for carousel */
+        @media (max-width: 767.98px) {
+            .blog-container, .blog-left, .blog-right {
+                display: none; /* Hide standard blog layout */
+            }
+
+            .carousel-container {
+                display: block; /* Show carousel */
+            }
+        }
+
+        @media (min-width: 768px) {
+            .carousel-container {
+                display: none; /* Hide carousel on larger screens */
+            }
+        }
+
+@media (min-width: 1200px) {
+    .col-xl-8 {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 1199px) {
+    .col-lg-9 {
+        max-width: 85%;
+    }
+}
+
+@media (max-width: 991px) {
+    .col-md-10 {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 767px) {
+    .col-12 {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (min-width: 1150px) {
+    .banner-container {
+        height: 50vh; /* Increase height for larger screens */
+    }
+
+    .updated-text {
+        font-size: 2.5vw;
+    }
+
+    .updated-text-2 {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 2150px) {
+    .banner-container {
+        height: 26vh; /* Increase height for larger screens */
+    }
+    .text-swiss{
+        height: 370px;
+    }
+}
+
+
+
+/* footer */
+#copyrights {
+    background-color: #d72328;
+    color: white;
+    padding: 40px 0;
+  }
+  
+  .footer-about {
+    margin-bottom: 30px;
+  }
+  
+  
+  .footer-column {
+    margin-bottom: 20px;
+  }
+  
+  .footer-column h5 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .footer-column ul {
+    list-style-type: none;
+    text-align: left;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-column a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .footer-column a:hover {
+    text-decoration: underline;
+  }
+  
+  .social-icons {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .social-icons li {
+    margin-right: 10px;
+  }
+
+  .fc{
+    padding-left: 0;
+  }
+  
+  .footer-logo-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    left: 6rem;
+  }
+  
+  .footer-logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+  }
+  
+  .company-address {
+    font-style: normal;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .brand-logo{
+   width: 18rem;
+  }
+
+  .equal-height {
+    padding-top: 6rem;
+}
+  
+
+.btn-primary{
+    background-color: white;
+    border-color: #d72328;
+    color: #d72328;
+}
+
+.btn-primary:hover{
+    background-color: #d72328;
+    color: white;
+    border-color: #d72328;
+}
+.card.sec-text-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.about_img{
+    width: 30rem;
+}
+
+.maps{
+    display: flex;
+    justify-content: center;
+}
+
+#visionBtn,#missionBtn{
+    width: 18rem;
+}
+
+    .footer-column h5 {
+        font-size: 16px; /* Smaller font size */
+    }
+
+    .footer-column ul li {
+        margin-bottom: 5px;
+    }
+
+    .footer-logo {
+        max-width: 250px; /* Smaller logo */
+    }
+
+    .company-address {
+        font-size: 14px; /* Smaller font size */
+    }
+
+    /* Custom button adjustments */
+    .swissbake-btn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    .swissbake-btn .fa-arrow-right {
+        margin-left: 5px; /* Reduce space */
+    }
+
+    /* Specific adjustments for text and other elements */
+    .text-center.mt-4 {
+        margin-top: 20px; /* Reduce margin */
+    }
+
+    .col-12 {
+        padding: 0 5px; /* Reduce padding for columns */
+    }
+
+    .centered-container {
+        max-width: 90%; /* Adjust width */
+        padding: 10px;
+    }
+
+    .blog-div {
+        flex-direction: column;
+        padding: 0;
+    }
+    
+    /* Adjustments for YouTube section */
+    .youtube {
+        margin-bottom: 20px; /* Reduce bottom margin */
+    }
+
+    .youtube-iframe .container-fluid {
+        padding: 0; /* Remove padding */
+    }
+
+    .youtube-iframe .row {
+        flex-direction: column; /* Stack items */
+        display: flex;
+        align-items: center;
+    }
+
+
+.instagram a{
+    display: none;
+}
+
+.custom-btn {
+    background-color: #d72328;
+    color: white;
+}
+.custom-btn:hover {
+    background-color: white;
+    color: #d72328;
+    border-color: #d72328;
+}
+
+.swiss-solutions{
+    color: #d72328;
+}
+
+span.swiss-solutions-2 {
+    font-size: large;
+}
+.updated-text-solutions{
+    font-size: 1.5vw;
+    text-align: center;
+}
+
+.solutions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom:5rem ;
+}
+
+.innov{
+    margin-bottom: 5rem;
+}
+
+
+.blog-box {
+    background-color: #f9f9f9; /* Light grey background */
+    border: 1px solid #ddd; /* Light grey border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+    height: 20rem;
+}
+
+/* Banner Styles */
+.banner-blog {
+   
+    height: 30rem;
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensure the image doesn't overflow */
+}
+
+.banner-text-blog {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.banner-text-blog img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes the image cover the entire container */
+    opacity: 1; /* Ensure the image is fully visible */
+}
+
+.banner-solution{
+    height: 32rem;
+    position: relative;
+    margin-bottom: 20px;
+    width: 104%;
+}
+.solution-img{
+    width: 200px;
+  height: 300px;
+  object-fit: contain;
+}
+.banner-text-blog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-box {
+    color: white;
+    font-size: 3em; /* Adjust font size as needed */
+    border: 2px solid white;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background for better contrast */
+}
+
+/* Card styling */
+.blog-details-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2.5rem;
+}
+
+/* Image styling */
+.blog-details-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Title styling */
+.blog-details-card .card-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Text styling */
+.blog-details-card .card-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+    .container {
+        padding: 10px;
+    }
+
+    .blog-details-card .card-title {
+        font-size: 1.5rem;
+    }
+
+    .blog-details-card .card-text {
+        font-size: 0.9rem;
+    }
+}
+
+
+.more{
+    font-weight: bold;
+}
+
+.button-wrapper {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.solution-box .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.solution-box .card-text {
+    font-size: 0.9rem;
+}
+.solution-box .btn-outline-primary {
+    border-color: #000;
+    color: #000;
+}
+.solution-box .btn-outline-primary:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.sol-center {
+    width: 70%;
+}
+
+/* Style for the solution title */
+.solution-title {
+    color: #888888;
+    font-size: 1.25rem;
+    position: relative;
+}
+
+/* Red line below the solution title */
+.title-underline {
+    width: 50px;
+    height: 3px;
+    background-color: red;
+    margin: 0 auto 10px auto;
+}
+
+/* Make solution boxes the same height and width */
+.solution-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 100%;
+}
+
+/* Ensure that images are responsive and fit the card */
+.solution-box img {
+    max-height: 200px;
+    object-fit: cover;
+}
+
+/* Adjust the card body to ensure proper alignment */
+.solution-box .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.type {
+    display: flex;
+    flex-direction: column;
+}
+p.badge.bg-danger {
+    width: 20%;
+}
+p.badge.bg-success {
+    width: 20%;
+}
+
+/* Custom button styles */
+.custom-btn-sol {
+    background-color: white;
+    color: #d72328;
+    border-color: #d72328;
+}
+
+.footer-mail{
+    color: white;
+}
+
+
+
+.blog-banner {
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    margin: 2rem auto;
+    max-width: 100%;
+    border-radius: 10px;
+}
+.recipe-image-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.recipe-image {
+    width: 100%;
+height: auto;
+object-fit: cover;
+border-radius: 10px;
+}
+.recipe-details {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 2.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+.recipe-detail-item {
+    text-align: center;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 0 0 auto;
+    margin-right: 0.9rem;
+    font-size: 1.2rem;
+}
+.recipe-detail-item i {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 0.2rem;
+}
+.recipe-detail-item span {
+    display: block;
+    font-size: 1rem;
+    color: #6c757d;
+}
+.recipe-detail-item strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #343a40;
+}
+.custom-color {
+    color: #d72328;
+}
+.side-by-side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.side-by-side > div {
+    flex: 1 1 48%;
+}
+.recipe-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+
+
+@media (max-width: 768px) {
+    .carousel-container {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        overflow: hidden;
+        position: relative;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease;
+    }
+
+    .carousel-item {
+        flex: 0 0 100%;
+        width: 100%;
+        transition: opacity 0.5s ease;
+        display: none;
+    }
+
+    .carousel-item.active {
+        display: block;
+    }
+
+    .blog-card {
+        margin: 0 auto;
+        max-width: 90%;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 6px 20px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease-in-out;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .read-more-btn {
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    .read-more-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Styles for navigation buttons */
+    .carousel-control-prev,
+    .carousel-control-next {
+        background-color: rgba(0,0,0,0.5);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+
+    .carousel-control-prev {
+        left: 10px;
+    }
+
+    .carousel-control-next {
+        right: 10px;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Styles for indicators */
+    .carousel-indicators {
+        bottom: -30px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        margin-right: 15%;
+        margin-left: 15%;
+        list-style: none;
+    }
+
+    .carousel-indicators button {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #ccc;
+        opacity: 0.5;
+        border: 0;
+        margin: 0 5px;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .carousel-indicators button.active {
+        background-color: #007bff;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 767.98px) {
+    nav.navbar {
+        position: fixed;
+        bottom: -0.5rem;
+        width: 100%;
+        z-index: 1030;
+        background-color: #f8f9fa;
+        height: 3.4rem;
+    }
+    nav.navbar .navbar-nav {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+    nav.navbar .nav-link {
+        padding: 0.8rem;
+        font-size: 0.8rem;
+    }
+    nav.navbar .nav-item {
+        flex: 1;
+        text-align: center;
+    }
+    .nav-route{
+        margin-left: 0rem;
+        margin-right: 0rem;
+    }
+    .sol-para{
+        font-size: 10px;
+    }
+
+    
+
+    
+}
+
+
+
+
+/* Media query for screens below 420 pixels */
+@media (max-width: 435px) {
+
+    /* General container adjustments */
+    .container-fluid {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .brand-logo{
+        width: 12rem;
+    }
+    .banner-phone{
+        height: 11rem;
+        width: 29rem;
+    }
+    .banner-blog {
+        height: 8rem;
+    }
+
+    
+    /* Navbar adjustments */
+    .navbar {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .navbar-brand, .navbar-nav, .nav-item {
+        text-align: center;
+        width: 100%;
+    }
+
+    .navbar .separator {
+        display: none; /* Hide separator */
+    }
+
+    .nav-link {
+        padding-bottom: 5px;
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .search-form {
+        width: 100%; /* Full width on small screens */
+        margin-top: 10px;
+    }
+
+    /* Banner adjustments */
+    .banner-container {
+        height: 20vh; /* Reduce height for smaller screens */
+    }
+    .text-swiss{
+        height: 170px;
+    }
+    .carousel-item img {
+        height: 100%;
+        object-fit: cover; /* Adjust image fit */
+    }
+
+    .paragraph1-container {
+        background-color: #d72328;
+        color: white;
+        top: 4%; /* Position at 10% from top */
+        text-align: left;
+        width: 7rem;
+        left: 9rem;
+        font-size: 9px;
+        height: 3rem;
+    
+    }
+    .paragraph2-container {
+        background-color: white;
+        color: black;
+        bottom: 47%; /* Position at 10% from bottom */
+        text-align: center;
+        width: 16rem;
+        left: 17rem;
+        font-size: 7px;
+        height: 3rem;
+    }
+
+
+    /* Updated text adjustments */
+    .updated-text, .updated-text-2 {
+        font-size: 5vw; /* Use viewport units for responsive text size */
+        line-height: 1.3;
+        padding-top: 10px;
+    }
+
+    .updated-text-2 {
+        font-size: 2.5vw;
+    }
+    .updated-text-solutions {
+        font-size: 4.5vw;
+        text-align: center;
+        padding: 0px 20px 0px 20px;
+    }
+
+    span.updated-text-2.innov-text {
+        font-size: 5.5vw;
+    }
+   
+
+    /* Blog container adjustments */
+    .blog-container {
+        flex-direction: column; /* Stack blogs vertically */
+        padding: 0 10px;
+    }
+
+    .blog-left, .blog-right {
+        width: 100%;
+        padding: 0;
+    }
+
+    .card {
+        margin-bottom: 10px; /* Reduce margin for compact layout */
+    }
+
+    .blog-left{
+        left: 0;
+    }
+
+    .card-img-top {
+        height: 150px; /* Smaller image height */
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .card-text {
+        font-size: 14px;
+    }
+    .sol-center {
+        width: 95%;
+    }
+
+    .btn-primary {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+
+    /* Video adjustments */
+    .video-container {
+        padding-bottom: 75%; /* Adjust aspect ratio */
+    }
+
+    .video-container iframe {
+        height: 100%; /* Full height on small screens */
+    }
+
+    /* blogdetails adjustments */
+
+    .recipe-details{
+        padding: 0.5rem;
+        margin-top: 2rem;
+
+    }
+    .recipe-detail-item{
+        padding: 0.5rem;
+        margin-right: 0.5rem;
+    }
+    .recipe-detail-item span{
+        font-size: 0.9rem;
+    }
+    .side-by-side{
+        flex-direction: column;
+    }
+    .blog-banner{
+        height: 200px;
+        margin: -2rem auto;
+    }
+    .blog-date{
+        display: none;
+    }
+    .blog-date-1{
+        width: 100%;
+        display: flex;
+    }
+
+        /* Footer adjustments */
+        #copyrights {
+            padding: 20px 0;
+        }
+
+        
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+            display: none; /* Initially hide the list */
+        }
+
+        .footer-column ul.active {
+            display: block; /* Show the list when active */
+        }
+
+        .footer-column ul li {
+            margin-bottom: 5px;
+            padding-left: 12px;
+        }
+
+        .footer-column ul li a {
+            color: inherit; /* Adjust this to your preferred link color */
+            text-decoration: none;
+            
+        }
+
+        .footer-column ul li i {
+            margin-right: 8px;
+        }
+
+        .footer-toggle {
+            cursor: pointer;
+        }
+
+        .footer-toggle .arrow {
+            margin-left: 8px;
+        }
+        .footer-icons{
+            font-size: 28px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .social-icons li {
+            margin: 0 10px;
+        }
+
+        .social-icons li a {
+            color: inherit; /* Adjust this to your preferred social icon color */
+            text-decoration: none;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto; /* Center the container */
+            padding: 20px;
+        }
+
+        .footer-logo-column {
+            text-align: center;
+        }
+        .footer-logo-column{
+            left: 0rem;
+        }
+        ul.social-icons {
+            display: flex;
+        }
+        .footer-logo {
+            max-width: 250px;
+        }
+
+
+
+    }
+
+    

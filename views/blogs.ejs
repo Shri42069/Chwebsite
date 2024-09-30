@@ -1,0 +1,53 @@
+<%- include('layout/header', { title: 'Blogs' }) %>
+
+<div class="banner-blog d-flex align-items-center justify-content-center">
+    <div class="banner-text-blog text-center">
+        <img src="/images/artbord 1 copy-100.jpg" alt="">
+    </div>
+</div>
+
+<div class="container my-4">
+    <h1 class="text-center my-4">
+        <p class="updated-text">
+            <span class="swiss">Blogs by </span> SwissBake®
+        </p>
+        <p class="updated-text-2">
+            Articles covering bakery trends, insights, know-how and <br> science behind baking. 
+        </p>
+    </h1>
+
+    <!-- Filter Buttons -->
+    <div class="text-center mb-4">
+        <a href="/blogs" class="btn <%= currentType === 'all' ? 'btn-primary' : 'btn-outline-primary' %> mx-2">All</a>
+        <a href="/blogs?type=article" class="btn <%= currentType === 'article' ? 'btn-primary' : 'btn-outline-primary' %> mx-2">Articles</a>
+        <a href="/blogs?type=recipe" class="btn <%= currentType === 'recipe' ? 'btn-primary' : 'btn-outline-primary' %> mx-2">Recipes</a>
+    </div>
+
+    <div class="row">
+        <% if (blogs && blogs.length > 0) { %>
+            <% blogs.forEach((blog) => { %>
+                <div class="col-md-3 mb-5">
+                    <div class="card">
+                        <img src="/images/<%= blog.image %>" class="card-img-top" alt="<%= blog.title %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= blog.title %></h5>
+                            <p class="text-muted small mb-2">
+                                <%= new Date(blog.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %>
+                            </p>
+                            <div class="type">
+                                <p class="badge <%= blog.blogType === 'article' ? 'bg-success' : 'bg-danger' %>"><%= blog.blogType %></p>
+                                <a href="/blogDetails/<%= blog.seo.url %>" class="btn btn-primary">Read More</a>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="col-12">
+                <p class="text-center">No blogs found.</p>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('layout/footer') %>

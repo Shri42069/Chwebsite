@@ -1,0 +1,189 @@
+<%- include('layout/header')  %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary">
+                    <h3 class="text-light">Edit Solution</h3>
+                </div>
+                <form action="/solution/update/<%= solution._id %>" method="post" id="solution-form" enctype="multipart/form-data">
+                    <div class="form-group p-2">
+                        <label for="title">Solution Title:</label>
+                        <input type="text" class="form-control" id="title" name="title" value="<%= solution.title %>" required>
+                    </div>
+                    
+                    <div class="form-group p-2">
+                        <label for="shortDescription">Short Description:</label>
+                        <textarea class="form-control" id="shortDescription" name="shortDescription" rows="3" required><%= solution.shortDescription %></textarea>
+                    </div>
+                    
+                    <div class="form-group p-2">
+                        <label for="longDescription">Long Description:</label>
+                        <textarea class="form-control tinymce" id="longDescription" name="longDescription" rows="10" required><%= solution.longDescription %></textarea>
+                    </div>
+                    
+                    <div class="form-group p-2">
+                        <label for="mainImage">Main Image:</label>
+                        <input type="file" class="form-control-file" id="mainImage" name="mainImage">
+                        <% if (solution.image) { %>
+                            <img src="/images/<%= solution.image %>" alt="Current main image" width="100" class="img-thumbnail mt-1">
+                        <% } else { %>
+                            <p>No image currently set</p>
+                        <% } %>
+                        <input type="hidden" name="old_image" value="<%= solution.image %>">
+                    </div>
+                    
+                    <div class="form-group p-2">
+                        <label for="seo-url">SEO URL:</label>
+                        <input type="text" class="form-control" id="seo-url" name="seo-url" value="<%= solution.seo.url %>" required>
+                    </div>
+                    
+                    <div class="form-group p-2">
+                        <label for="seo-tags">SEO Tags (comma-separated):</label>
+                        <input type="text" class="form-control" id="seo-tags" name="seo-tags" value="<%= solution.seo.tags.join(', ') %>" required>
+                    </div>
+                    
+                    <div class="form-group p-2">
+                        <label for="seo-keywords">SEO Keywords (comma-separated):</label>
+                        <input type="text" class="form-control" id="seo-keywords" name="seo-keywords" value="<%= solution.seo.keywords.join(', ') %>" required>
+                    </div>
+
+                    <!-- Sections -->
+                    <div id="sections">
+                        <h4 class="mt-4 mb-3">Sections</h4>
+                        <% solution.sections.forEach((section, index) => { %>
+                            <div class="section card mb-3">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Section Title:</label>
+                                        <input type="text" class="form-control section-title" name="section-title[]" value="<%= section.title %>" required>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label>Section Description:</label>
+                                        <textarea class="form-control tinymce section-description" name="section-description[]" rows="3" required><%= section.description %></textarea>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label>Section Image:</label>
+                                        <input type="file" class="form-control-file section-image" name="sectionImages">
+                                        <% if (section.image) { %>
+                                            <img src="/images/<%= section.image %>" alt="Current section image" width="100" class="img-thumbnail mt-1">
+                                        <% } else { %>
+                                            <p>No image currently set for this section</p>
+                                        <% } %>
+                                        <input type="hidden" name="old_section_image[]" value="<%= section.image %>">
+                                    </div>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-danger btn-sm delete-section">Delete Section</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <div class="mb-3 d-grid p-2">
+                        <button type="button" id="addSection" class="btn btn-secondary">Add Another Section</button>
+                    </div>
+                    
+                    <div class="mb-3 d-grid p-2">
+                        <button type="submit" class="btn btn-primary">Update Solution</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.tiny.cloud/1/orceffj3bi4ogmgd8bbxfqi1i11ilcxakzzdd7oi6hoz4br5/tinymce/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize TinyMCE
+        tinymce.init({
+            selector: '.tinymce',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+            height: 300
+        });
+
+        // Add new section functionality
+        document.getElementById('addSection').addEventListener('click', function() {
+            const sectionHtml = `
+                <div class="section card mb-3">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Section Title:</label>
+                            <input type="text" class="form-control section-title" name="section-title[]" required>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label>Section Description:</label>
+                            <textarea class="form-control tinymce section-description" name="section-description[]" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label>Section Image:</label>
+                            <input type="file" class="form-control-file section-image" name="sectionImages">
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-danger btn-sm delete-section">Delete Section</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('sections').insertAdjacentHTML('beforeend', sectionHtml);
+            tinymce.init({
+                selector: '.tinymce:not(.mce-initialized)',
+                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+                height: 300
+            });
+        });
+
+        // Delete section functionality
+        document.getElementById('sections').addEventListener('click', function(e) {
+            if (e.target.classList.contains('delete-section')) {
+                if (confirm('Are you sure you want to delete this section?')) {
+                    e.target.closest('.section').remove();
+                }
+            }
+        });
+
+        // Form submission
+        document.getElementById('solution-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Make sure TinyMCE updates its textareas
+            tinymce.triggerSave();
+
+            const formData = new FormData(this);
+            
+            const sections = [];
+            const titles = formData.getAll('section-title[]');
+            const descriptions = formData.getAll('section-description[]');
+            const images = formData.getAll('sectionImages');
+            
+            for (let i = 0; i < titles.length; i++) {
+                sections.push({
+                    title: titles[i],
+                    description: descriptions[i],
+                    image: document.querySelectorAll('.section')[i].querySelector('img') ? 
+                           document.querySelectorAll('.section')[i].querySelector('img').src.split('/').pop() : 
+                           null
+                });
+            }
+            
+            formData.append('sections', JSON.stringify(sections));
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/'; // Redirect to home page on success
+                } else {
+                    console.error('Form submission failed');
+                }
+            });
+        });
+    });
+</script>
+
+<%- include('layout/footer')  %>

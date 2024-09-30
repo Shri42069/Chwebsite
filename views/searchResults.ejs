@@ -1,0 +1,45 @@
+<%- include('layout/header', { title: 'Search Results' }) %>
+
+<div class="container mt-4">
+    <h1>Search Results for "<%= searchQuery %>"</h1>
+
+    <h2>Blogs</h2>
+    <% if (blogs.length > 0) { %>
+        <div class="row">
+            <% blogs.forEach(blog => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="/images/<%= blog.image %>" class="card-img-top" alt="<%= blog.title %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= blog.title %></h5>
+                            <a href="/blogDetails/<%= blog.seo.url %>" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>No blog results found.</p>
+    <% } %>
+
+    <h2>Solutions</h2>
+    <% if (solutions.length > 0) { %>
+        <div class="row">
+            <% solutions.forEach(solution => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="/images/<%= solution.image %>" class="card-img-top" alt="<%= solution.title %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= solution.title %></h5>
+                            <a href="/solutionDetails/<%= solution.seo.url %>" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>No solution results found.</p>
+    <% } %>
+</div>
+
+<%- include('layout/footer') %>

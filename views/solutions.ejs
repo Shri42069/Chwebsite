@@ -1,0 +1,50 @@
+<%- include('layout/header', { title: 'Solutions' }) %>
+
+<div class="banner-blog d-flex align-items-center justify-content-center">
+    <div class="banner-text-blog text-center">
+        <img src="/images/artbord 1-100.jpg" alt="">
+    </div>
+</div>
+
+<div class="container my-4">
+    <h1 class="text-center my-4">
+        <p class="updated-text">
+            <span class="swiss">Solutions by </span> Swissbake®
+        </p>
+        <p class="updated-text-2">
+            Explore our solutions to address your needs and solve your challenges.
+        </p>
+    </h1>
+    <div class="p-4 rounded">
+        <% if (solutions && solutions.length > 0) { %>
+            <div class="row">
+                <% solutions.forEach((solution, index) => { %>
+                    <div class="col-sm-6 col-md-4 col-lg-4 mb-4"> <!-- Adjusted col-lg class to col-lg-4 -->
+                        <div class="solution-box card shadow-sm">
+                            <img src="/images/<%= solution.image %>" class="card-img-top" alt="<%= solution.title %>">
+                            <div class="card-body d-flex flex-column">
+                                <h1 class="card-title text-center solution-title"><%= solution.title %></h1>
+                                <div class="title-underline"></div>
+                                <p class=" text-muted small mb-2">
+                                    <%= new Date(solution.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %>
+                                </p>
+                                <p><%= solution.shortDescription.length > 300 ? solution.shortDescription.substring(0, 300) + '...' : solution.shortDescription %></p>
+                                
+                                
+                                    <div class="mt-auto text-center">
+                                        <a href="/solutionDetails/<%= solution.seo.url %>" class="btn custom-btn-sol btn-sm">Know <span class="more">More</span></a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="alert alert-info text-center" role="alert">
+                No solutions found. Check back later for new content!
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('layout/footer') %>

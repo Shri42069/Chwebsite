@@ -1,0 +1,204 @@
+<%- include('layout/header')  %>
+<style>
+    .show-recipe {
+        display: block;
+    }
+    .hide-recipe {
+        display: none;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-danger">
+                    <h3 class="text-light">Edit Blog: <%= blog.title %></h3>
+                </div>
+                <form action="/blog/update/<%= blog._id %>" method="post" id="blog-form" enctype="multipart/form-data">
+                    <!-- Blog Type Selection -->
+                    <div class="form-group p-2">
+                        <label>Blog Type:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="blogType" id="typeArticle" value="article" <%= blog.blogType === 'article' ? 'checked' : '' %> required>
+                            <label class="form-check-label" for="typeArticle">Article</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="blogType" id="typeRecipe" value="recipe" <%= blog.blogType === 'recipe' ? 'checked' : '' %> required>
+                            <label class="form-check-label" for="typeRecipe">Recipe</label>
+                        </div>
+                    </div>
+
+                    <!-- Recipe-specific fields -->
+                    <div id="recipeFields" data-blog-type="<%= blog.blogType %>">
+                        <div class="form-group p-2">
+                            <label for="bakeTemp">Bake Temperature (°C):</label>
+                            <input type="number" class="form-control" id="bakeTemp" name="bakeTemp" value="<%= blog.recipeDetails?.bakeTemp %>">
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="mixingTimeMin">Mixing Time Range (minutes):</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="mixingTimeMin" name="mixingTimeMin" placeholder="Min" value="<%= blog.recipeDetails?.mixingTime.min %>">
+                                <span class="input-group-text">to</span>
+                                <input type="number" class="form-control" id="mixingTimeMax" name="mixingTimeMax" placeholder="Max" value="<%= blog.recipeDetails?.mixingTime.max %>">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="bakeTimeMin">Bake Time Range (minutes):</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="bakeTimeMin" name="bakeTimeMin" placeholder="Min" value="<%= blog.recipeDetails?.bakeTime.min %>">
+                                <span class="input-group-text">to</span>
+                                <input type="number" class="form-control" id="bakeTimeMax" name="bakeTimeMax" placeholder="Max" value="<%= blog.recipeDetails?.bakeTime.max %>">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group p-2">
+                            <label for="prepTimeMin">Prep Time Range (minutes):</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="prepTimeMin" name="prepTimeMin" placeholder="Min" value="<%= blog.recipeDetails?.prepTime.min %>">
+                                <span class="input-group-text">to</span>
+                                <input type="number" class="form-control" id="prepTimeMax" name="prepTimeMax" placeholder="Max" value="<%= blog.recipeDetails?.prepTime.max %>">
+                            </div>
+                        </div>
+
+                        <div class="form-group p-2">
+                            <label for="recipeDescription">Recipe Description:</label>
+                            <textarea class="form-control tinymce" id="recipeDescription" name="recipeDescription" rows="3" placeholder="Enter a brief description of the recipe"><%= blog.recipeDetails?.description %></textarea>
+                        </div>
+
+                        <div id="methodContainer">
+                            <div class="form-group p-2">
+                                <label for="method">Method:</label>
+                                <textarea class="form-control tinymce" id="method" name="method" rows="5"><%= blog.recipeDetails?.method %></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group p-2">
+                            <label for="productUrls">Product URLs:</label>
+                            <div id="productUrlsContainer">
+                                <% blog.recipeDetails?.productUrls.forEach((url, index) => { %>
+                                    <div class="input-group mb-2">
+                                        <input type="url" class="form-control productUrl" name="productUrls[]" value="<%= url %>" placeholder="Enter product URL">
+                                        <% if (index === 0) { %>
+                                            <button type="button" class="btn btn-secondary addProductUrl">+</button>
+                                        <% } else { %>
+                                            <button type="button" class="btn btn-danger removeProductUrl">-</button>
+                                        <% } %>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blog Title -->
+                    <div class="form-group p-2">
+                        <label for="title">Blog Title:</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter the blog title" value="<%= blog.title %>" required>
+                    </div>
+                    
+                    <!-- Blog Content -->
+                    <div id="articleContent">
+                        <div class="form-group p-2">
+                            <label for="content">Blog Content:</label>
+                            <textarea class="form-control tinymce" id="content" name="content" rows="10" placeholder="Write your blog content here..."><%= blog.content %></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Blog Image -->
+                    <div class="form-group p-2">
+                        <label for="image">Upload Image:</label>
+                        <input type="file" class="form-control-file" id="image" name="image">
+                        <img src="/images/<%= blog.image %>" width="100" class="img-thumbnail mt-1">
+                        <input type="hidden" name="old_image" value="<%= blog.image %>">
+                    </div>
+                    
+                    <!-- SEO Fields -->
+                    <div class="form-group p-2">
+                        <label for="seo_url">SEO URL:</label>
+                        <input type="text" class="form-control" id="seo_url" name="seo_url" placeholder="Enter SEO-friendly URL" value="<%= blog.seo.url %>" required>
+                    </div>
+                    <div class="form-group p-2">
+                        <label for="seo_tags">SEO Tags (comma-separated):</label>
+                        <input type="text" class="form-control" id="seo_tags" name="seo_tags" placeholder="Enter tags, separated by commas" value="<%= blog.seo.tags.join(', ') %>">
+                    </div>
+                    <div class="form-group p-2">
+                        <label for="seo_description">SEO Description:</label>
+                        <textarea class="form-control" id="seo_description" name="seo_description" rows="3" placeholder="Enter meta description for SEO" required><%= blog.seo.description %></textarea>
+                    </div>
+                    <div class="form-group p-2">
+                        <label for="seo_title">SEO Title:</label>
+                        <input type="text" class="form-control" id="seo_title" name="seo_title" placeholder="Enter meta title for SEO" value="<%= blog.seo.title %>" required>
+                    </div>
+                    <div class="form-group p-2">
+                        <label for="seo_keywords">SEO Keywords (comma-separated):</label>
+                        <input type="text" class="form-control" id="seo_keywords" name="seo_keywords" placeholder="Enter keywords, separated by commas" value="<%= blog.seo.keywords.join(', ') %>">
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="mb-10 d-grid p-2">
+                        <button type="submit" class="btn btn-success p-2">Update Blog</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const blogTypeRadios = document.querySelectorAll('input[name="blogType"]');
+    const recipeFields = document.getElementById('recipeFields');
+    const addProductUrlBtn = document.querySelector('.addProductUrl');
+    const productUrlsContainer = document.getElementById('productUrlsContainer');
+
+    // Initialize TinyMCE
+    tinymce.init({
+        selector: '.tinymce',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        height: 400
+    });
+
+    // Show/hide recipe fields based on blog type
+    blogTypeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            recipeFields.style.display = this.value === 'recipe' ? 'block' : 'none';
+        });
+    });
+
+    // Add new product URL input
+    if (addProductUrlBtn) {
+        addProductUrlBtn.addEventListener('click', function() {
+            const newInput = document.createElement('div');
+            newInput.className = 'input-group mb-2';
+            newInput.innerHTML = `
+                <input type="url" class="form-control productUrl" name="productUrls[]" placeholder="Enter product URL">
+                <button type="button" class="btn btn-danger removeProductUrl">-</button>
+            `;
+            productUrlsContainer.appendChild(newInput);
+        });
+    }
+
+    // Remove product URL input
+    productUrlsContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('removeProductUrl')) {
+            e.target.closest('.input-group').remove();
+        }
+    });
+
+    // Set initial visibility of recipe fields
+    const initialBlogType = document.querySelector('input[name="blogType"]:checked').value;
+    recipeFields.style.display = initialBlogType === 'recipe' ? 'block' : 'none';
+
+    // Form submission
+    document.getElementById('blog-form').addEventListener('submit', function(e) {
+        // Ensure TinyMCE content is updated before form submission
+        tinymce.triggerSave();
+    });
+});
+</script>
+
+<%- include('layout/footer')  %>
